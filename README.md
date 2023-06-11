@@ -12,6 +12,7 @@ This is a python telegram bot made with pyTelegramBotAPI framework. Telegram has
 | /apod       	| provide the astronomy picture of the day  | <YYYY-MM-DD> format     	|
 | /generateqr 	| sends a qr code to the given text         | text                    	|
 | /ufact      	| sends a useless fact                      | None                    	|
+| /define      	| provide the simple definition of the word | text                    	|
 
 
 
