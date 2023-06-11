@@ -13,7 +13,7 @@ QR_URL = os.getenv('QR_URL')
 NASA_API = os.getenv('NASA_API')
 NASA_URL = os.getenv('NASA_URL')
 U_FACTS = os.getenv('U_FACTS')
-
+DICT_API = os.getenv('DICT_API')
 # BOT 
 
 bot = telebot.TeleBot(TG_TOKEN)
@@ -117,3 +117,19 @@ def generateqr(message):
         data = message.text
         qr_code = QR_URL + data
         bot.send_photo(message.chat.id, photo=qr_code)
+
+# DEFINE
+
+def define(message):
+    try:
+        resp = DICT_API + message.text
+        data = requests.get(resp)
+        parsed = json.loads(data.text)
+
+        print(parsed[0]['meanings'][0]['partOfSpeech'])
+        meanings = parsed[0]['meanings']
+
+        for i in meanings:
+            bot.send_message(message.chat.id, f"Word: {message.text} ({i['partOfSpeech']})\n\nDefinition: {i['definitions'][0]['definition']}")
+    except:
+        bot.send_message(message.chat.id, "Unable to define the word or it does not exist in the database. Please try again")
